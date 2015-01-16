@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Knowhow Client</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/card.css" rel="stylesheet">
+  <link href="css/knowhow.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+      <!-- nav bar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Knowhow Desktop</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">All Topics</a></li>
+              <li><a href="#">All Papers</a></li>
+              <li><a href="#">About</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Account <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <!-- main ui container -->
+      <div class="container">
+        <!-- page header for general exam information -->
+        <h1 class="page-header">Lorem ipsum dolor sit amet</h1>
+
+        <!-- exam question card to be updated with new questions -->
+        <!-- question card -->
+        <div class="col-md-7">
+          <div class="card">
+            <div class="card-image">
+              <img class="img-responsive" src="img/lib-min.jpg">
+              <!-- question -->
+              <span class="card-title header-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+            </div>
+
+            <!-- possible answers form -->
+            <div class="card-content sub-text">
+              <form>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                    Option one is this and that&mdash;be sure to include why it's great
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Option two can be something else and selecting it will deselect option one
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                    Option three is not disabled
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                    Option four is for the love of even numbers
+                  </label>
+                </div>
+              </form>
+            </div>
+
+            <!-- learning resources -->
+            <div class="card-action">
+              <a href="" target="new_blank">learning resource one</a>
+              <a href="" target="new_blank">learning resource one</a>
+              <a href="" target="new_blank">learning resource one</a>
+            </div>
+
+            <!-- next and previous links -->
+            <div class="card-action text-center">
+              <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                <button type="button" class="btn btn-danger">Restart Test</button>
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <!-- score card to show current score in a track -->
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-image">
+              <img class="img-responsive" src="img/score-sm.jpg">
+              <span class="card-title header-text">Your Score Card</span>
+            </div>
+
+            <div class="card-content sub-text text-center">
+              <h1 class="score-text">50 <small>/100</small></h1>
+            </div>
+
+            <div class="card-action text-center">
+              <a href="" target="new_blank">10 questions left</a>
+            </div>
+
+            <div class="card-action text-center">
+              <!-- submit button -->
+              <button type="button" class="btn btn-default btn-danger">Submit Test <span class="glyphicon glyphicon-send"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- site footer -->
+      <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+          <div class="nav navbar-nav navbar-right">
+            &copy; KnowHow
+          </div>
+        </div>
+      </nav>
+
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="js/jquery.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/bootstrap.js"></script>
+<!--     // <script src="js/underscore.js"></script>
+  // <script src="js/backbone.js"></script> -->
+</body>
+</html>
