@@ -54,6 +54,39 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 			});
 	};
 
+	var signup = function (username, email, password){
+
+		POSTREQ.url = SERVER + 'api/signup/';
+		POSTREQ.data = {
+			'username': username,
+			'email': email,
+			'password': password,
+			'groups': []
+		};
+		//send request
+		$http(POSTREQ)
+			.success(function(data, status, headers, config){
+				console.log(data);
+				//now log the user in
+				login(username, password);
+			})
+			.error(function(data, status, headers, config){
+				console.log(data);
+			});
+	};
+
+	var logout = function (){
+		//delete all user variables
+		localStorage.removeItem('username');
+		localStorage.removeItem('userid');
+		localStorage.removeItem('useremail');
+		localStorage.removeItem('userurl');
+		localStorage.removeItem('token');
+
+		//now redirect to index
+		$location.path('/');
+	}
+
 	// get user based on username
 	var getuser = function (username){
 		var token = 'Token ' + localStorage['token'];
@@ -79,24 +112,26 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 	};
 
 	//test if the user is signed in already
-	var isSignedin = function (){
+	var isSignedIn = function (){
 		return localStorage['userid'] != null;
 	};
 
 	//if the user is signed in already, redirect to dashboard
 	var redirectIfSignedin = function (){
-		if(isSignedin()){
+		if(isSignedIn()){
 			$location.path('/dashboard');
 		} else {
-			$location.path('/login');
+			// $location.path('/login');
 		}
 	};
 
 	//public api
 	return {
 		login: login,
+		signup: signup,
+		logout: logout,
 		getuser: getuser,
 		redirect: redirectIfSignedin,
-		isSignedin: isSignedin
+		isSignedIn: isSignedIn
 	};
 });

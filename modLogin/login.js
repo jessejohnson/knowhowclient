@@ -27,6 +27,19 @@ modLogin.controller('loginCtrl', function($scope, authService){
 	};
 });
 
-modLogin.controller('signupCtrl', function($scope){
+modLogin.controller('signupCtrl', function($scope, authService){
 	console.log('signupCtrl has control');
+
+	authService.redirect();
+
+	$scope.user = {
+		'username': '',
+		'email': '',
+		'password': ''
+	};
+
+	$scope.signup = function(){
+		//sign up a new user
+		authService.signup($scope.user.username, $scope.user.email, $scope.user.password);
+	}
 });

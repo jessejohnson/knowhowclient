@@ -17,4 +17,12 @@ modDashboard.controller('dashboardCtrl', function($scope, authService){
 	//set user variables
 	$scope.user.username = localStorage['username'];
 	$scope.user.userid = localStorage['userid'];
+	$scope.user.isSignedIn = authService.isSignedIn();
+
+	console.log($scope.user.isSignedIn);
+
+	//create logout function
+	$scope.logout = function(){
+		authService.logout();
+	};
 });

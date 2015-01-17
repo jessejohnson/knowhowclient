@@ -1,45 +1,42 @@
 <div ng-controller="signupCtrl">
 
-	<!-- set special page styling -->
-	<style type="text/css">
-	body{
-		/*background: #300;*/
-	}
-	</style>
-	<!-- row -->
-	<div class="col-md-4">	
-	</div>
-	<div class="col-md-4">
-		<div class="card login-card">
-			<div class="card-image">
-				<img class="img-responsive" src="img/lib-min.jpg">
-				<span class="card-title header-text">Create your account</span>
-			</div>
+	<div ng-include="'modMain/navbar.html'"></div>
+	
+	<div class="container">
+		<div class="col-md-4">	
+		</div>
+		<div class="col-md-4">
+			<div class="card login-card">
+				<div class="card-image">
+					<img class="img-responsive" src="img/lib-min.jpg">
+					<span class="card-title header-text">Create your account</span>
+				</div>
 
-			<!-- login form -->
-			<form class="card-content">
-				<div class="form-group">
-					<label>Username</label>
-					<input class="form-control login-form" type="text" ng-model="user.username">
-				</div>
-				<div class="form-group">
-					<label>Email Address</label>
-					<input class="form-control login-form" type="email" ng-model="user.email">
-				</div>
-				<div class="form-group">
-					<label>Password</label>
-					<input class="form-control login-form" type="password" ng-model="user.password">
-				</div>
-				<div class="form-group">
-					<button class="btn btn-danger btn-lg main-cta-button" ng-click="signup()">Sign Up</button>
-				</div>
-			</form>
+				<!-- login form -->
+				<form class="card-content">
+					<div class="form-group">
+						<label>Username</label>
+						<input class="form-control login-form" type="text" ng-model="user.username">
+					</div>
+					<div class="form-group">
+						<label>Email Address</label>
+						<input class="form-control login-form" type="email" ng-model="user.email">
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input class="form-control login-form" type="password" ng-model="user.password">
+					</div>
+					<div class="form-group">
+						<button class="btn btn-danger btn-lg main-cta-button" ng-click="signup()">Sign Up</button>
+					</div>
+				</form>
 
-			<div class="card-action text-center">
-				<a href="#/login">or log in</a>
+				<div class="card-action text-center">
+					<a href="#/login">or log in</a>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-4">	
+		<div class="col-md-4">	
+		</div>
 	</div>
 </div>
