@@ -1,83 +1,102 @@
-//declare app module
-var myapp = angular.module('myapp', ['ngRoute']);
+'use strict';
 
-myapp.config(['$routeProvider', function($routeProvider){
-	$routeProvider
-	.when('/', {
-		templateUrl: 'login.html'
-	})
-	.when('/profile', {
-		templateUrl: 'profile.html'
-	})
-	.when('/tests', {
-		templateUrl: 'tests.html'
-	})
-	.otherwise({redirectTo: '/'});
+// Declare app level module which which depends on views and components
+var app = angular.module('prepgh', [
+	'ngRoute',
+	'prepgh.modMain',
+	'prepgh.modLogin',
+	'prepgh.modDashboard'
+]);
+
+app.config(['$routeProvider', function($routeProvider){
+	$routeProvider.otherwise({redirectTo: '/404'});
 }]);
 
-myapp.controller('loginControler', function($scope, $http, $location){
+app.constant('SERVER', 'http://127.0.0.1:8000/');
 
-	// user model for login
-	$scope.user = {
-		'username': '',
-		'password': ''
-	}
+app.value('REQ', {
+	method: 'GET',
+	url: '',
+	headers: {}
+});
 
-	$scope.login = function(){
-		//login stuff
-		console.log("user login complete");
-		console.log($scope.user);
+app.value('POSTREQ', {
+	method: 'POST',
+	url: '',
+	headers: {},
+	data: {}
+});
 
-		$http.post("http://127.0.0.1:5000/api-token-auth/", $scope.user)
-		.success(function(data, status, headers, config){
-			console.log(data);
-			localStorage["token"] = data.token;
+app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, SERVER){
+	// service to log user in and other auth related stuff
 
-				// redirect to /profile
-				$location.path('/profile');
+	//private methods
+
+	// get user token
+	var login = function (username, password){
+
+		POSTREQ.url = SERVER + 'api-token-auth/';
+		POSTREQ.data = {
+			'username': username,
+			'password': password
+		};
+		//send request
+		$http(POSTREQ)
+			.success(function(data, status, headers, config){
+				console.log(data);
+				//now store user token in localStorage
+				localStorage['token'] = data.token;
+				//finally, get the user
+				getuser(username);
 			})
-		.error(function(data, status, headers, config){
-			console.log(data);
-		});
+			.error(function(data, status, headers, config){
+				console.log(data);
+			});
 	};
-});
 
-myapp.controller('takeTestController', function($scope, $http){
+	// get user based on username
+	var getuser = function (username){
+		var token = 'Token ' + localStorage['token'];
+		REQ.url = SERVER + 'api/getuser/?username=' + username;
+		REQ.headers = {
+			'Authorization': token
+		};
+		//send request
+		$http(REQ)
+			.success(function(data, status, headers, config){
+				console.log(data);
+				//now store user variables in localStorage
+				localStorage['username'] = data.username;
+				localStorage['userid'] = data.id;
+				localStorage['userurl'] = data.url;
+				localStorage['useremail'] = data.email;
+				//then redirect to dashboard if user is not signed in already
+				redirectIfSignedin();
+			})
+			.error(function(data, status, headers, config){
+				console.log(data);
+			});
+	};
 
-	var tokenString = 'Token ' + localStorage['token'];
+	//test if the user is signed in already
+	var isSignedin = function (){
+		return localStorage['userid'] != null;
+	};
 
-	var req = {
-		method: 'GET',
-		url: 'http://127.0.0.1:5000/api/taketest/?test_id=2',
-		headers: {
-			'Authorization': tokenString
+	//if the user is signed in already, redirect to dashboard
+	var redirectIfSignedin = function (){
+		if(isSignedin()){
+			$location.path('/dashboard');
+		} else {
+			$location.path('/login');
 		}
-	}
+	};
 
-	$http(req)
-	.success(function(data, status, headers, config){
-		console.log(data.results);
-		$scope.testdata = data.results;
-	})
-	.error(function(data, status, headers, config){
-		console.log(data);
-	});
-});
-
-myapp.controller('profileController', function($scope, $http){
-
-	$scope.user = {
-		'username': "",
-		'email': ""
-	}
-	//first, get user information from server
-	$http.get("http://127.0.0.1:5000/api/users/1/")
-	.success(function(data, status, headers, config){
-		console.log(data);
-		$scope.user.username = data.username;
-		$scope.user.email = data.email;
-	})
-	.error(function(data, status, headers, config){
-		console.log(data);
-	});
+	//public api
+	return {
+		login: login,
+		getuser: getuser,
+		redirect: redirectIfSignedin,
+		isSignedin: isSignedin
+	};
 });
