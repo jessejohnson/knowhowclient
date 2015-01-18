@@ -1,11 +1,46 @@
+/*
+COLOUR PALLETE
+
+BASE PURPLE #9C27B0
+DEEP PURPLE #7B1FA2
+LITE PURPLE #AB47BC
+
+BASE RED #F44336
+LITE RED #EF5350
+
+WHITE #F3E5F5
+*/
+
 @font-face {
 	font-family: voll;
 	src: url('../fonts/voll.ttf');
 }
 
+@font-face{
+	font-family: essay;
+	src: url('../fonts/essay.woff');
+}
+
+@font-face{
+	font-family: regular;
+	src: url('../fonts/Roboto-Regular.ttf');
+}
+
+@font-face{
+	font-family: medium;
+	src: url('../fonts/Roboto-Medium.ttf');
+}
+
+@font-face{
+	font-family: bold;
+	src: url('../fonts/Roboto-Bold.ttf');
+}
+
 body{
-	font-family: voll;
-	background: url('../img/palewoodpanel.jpg');
+	margin-top: 40px;
+	font-family: regular;
+	background: #F3E5F5;
+	/*background: url('../img/palewoodpanel.jpg');*/
 }
 
 /*Navbar*/
@@ -14,11 +49,19 @@ body{
 	border-radius: 0px;
 	border-style: none;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-	background: #333;
+	/*background: #333;*/
+	background: #9C27B0;
+	margin-bottom: 0px;
+}
+
+.navbar-default .navbar-brand{
+	color: #FFF;
+	font-family: medium;
 }
 
 .navbar-default .navbar-nav li a{
 	color: #FFF;
+	font-family: medium;
 }
 
 .navbar-default .navbar-nav li a:hover{
@@ -30,7 +73,7 @@ body{
 }
 
 .dropdown-menu{
-	background: #333;
+	background: #AB47BC;
 }
 
 .dropdown-menu li a{
@@ -38,7 +81,7 @@ body{
 }
 
 .dropdown-menu li a:hover{
-	color: #333;
+	background: #EF5350;
 }
 
 .navbar-fixed-bottom{
@@ -46,36 +89,51 @@ body{
 	box-shadow: none;
 }
 
-/*main*/
-
-.page-header-no-border{
-	color: #333;
-	margin-top: 70px;
-	margin-bottom: 50px;
-	font-size: 48px;
-	border-bottom-color: transparent;
-	text-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+.navbar-default .navbar-toggle{
+	border-style: none;
 }
 
-.main-cta{
-	/*margin-top: 40px;*/
+.navbar-default .navbar-toggle:hover{
+	border-style: none;
+	background: transparent;
+}
+
+.navbar-default .navbar-toggle .icon-bar{
+	background-color: #FFF;
+}
+
+/*button .navbar-toggle .collapsed{
+	border-style: none;
+}*/
+
+/*main*/
+
+.jumbotron{
+	background: url('../img/chalkboard_globe_all.jpg') fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #FFF;
+	/*box-shadow: inset 1px 1px 10px #000;*/
+}
+
+.jumbotron h1{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-family: essay;
+}
+
+.jumbotron .img-logo{
+	margin-top: 30px;
 }
 
 .main-cta-button{
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	border-style: none;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 
 /*login and landing page*/
-
-.feature{
-	margin-top: 30px;
-	background-color: transparent;
-	border-style: none;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-}
 
 .login-form{
 	background: transparent;
