@@ -30,6 +30,9 @@ app.value('POSTREQ', {
 app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, SERVER){
 	// service to log user in and other auth related stuff
 
+	//service vars
+	var errorMessage = '';
+
 	//private methods
 
 	// get user token
@@ -51,6 +54,7 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 			})
 			.error(function(data, status, headers, config){
 				console.log(data);
+				errorMessage = data;
 			});
 	};
 
@@ -132,6 +136,7 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 		logout: logout,
 		getuser: getuser,
 		redirect: redirectIfSignedin,
-		isSignedIn: isSignedIn
+		isSignedIn: isSignedIn,
+		errors: errorMessage
 	};
 });
