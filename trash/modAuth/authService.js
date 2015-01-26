@@ -1,60 +1,29 @@
-'use strict';
+var modAuth = angular.module('prepgh.modAuthService', ['ngRoute', 'angular-loading-bar']);
 
-// Declare app level module which which depends on views and components
-var app = angular.module('prepgh', [
-	'ngRoute',
-	'prepgh.modMain',
-	'prepgh.modLogin',
-	'prepgh.modDashboard'
-]);
-
-app.config(['$routeProvider', function($routeProvider){
-	$routeProvider.otherwise({redirectTo: '/404'});
-}]);
-
-app.constant('SERVER', 'http://127.0.0.1:8000/');
-
-app.value('REQ', {
-	method: 'GET',
-	url: '',
-	headers: {}
-});
-
-app.value('POSTREQ', {
-	method: 'POST',
-	url: '',
-	headers: {},
-	data: {}
-});
-
-app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, SERVER){
+modAuth.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, SERVER){
 	// service to log user in and other auth related stuff
-
-	//service vars
-	var errorMessage = '';
 
 	//private methods
 
 	// get user token
-	var login = function (username, password){
+	var login = function (email, password){
 
 		POSTREQ.url = SERVER + 'api-token-auth/';
 		POSTREQ.data = {
-			'username': username,
+			'username': email,
 			'password': password
 		};
 		//send request
-		$http(POSTREQ)
+		return $http(POSTREQ)
 			.success(function(data, status, headers, config){
 				console.log(data);
 				//now store user token in localStorage
 				localStorage['token'] = data.token;
 				//finally, get the user
-				getuser(username);
+				getuser(email);
 			})
 			.error(function(data, status, headers, config){
-				console.log(data);
-				errorMessage = data;
+				// console.log(data);
 			});
 	};
 
@@ -64,15 +33,14 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 		POSTREQ.data = {
 			'username': username,
 			'email': email,
-			'password': password,
-			'groups': []
+			'password': password
 		};
 		//send request
-		$http(POSTREQ)
+		return $http(POSTREQ)
 			.success(function(data, status, headers, config){
 				console.log(data);
 				//now log the user in
-				login(username, password);
+				login(email, password);
 			})
 			.error(function(data, status, headers, config){
 				console.log(data);
@@ -91,15 +59,15 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 		$location.path('/');
 	}
 
-	// get user based on username
-	var getuser = function (username){
+	// get user based on email
+	var getuser = function (email){
 		var token = 'Token ' + localStorage['token'];
-		REQ.url = SERVER + 'api/getuser/?username=' + username;
+		REQ.url = SERVER + 'api/getuser/?email=' + email;
 		REQ.headers = {
 			'Authorization': token
 		};
 		//send request
-		$http(REQ)
+		return $http(REQ)
 			.success(function(data, status, headers, config){
 				console.log(data);
 				//now store user variables in localStorage
@@ -108,7 +76,8 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 				localStorage['userurl'] = data.url;
 				localStorage['useremail'] = data.email;
 				//then redirect to dashboard if user is not signed in already
-				redirectIfSignedin();
+				// redirectIfSignedin();
+				$location.path('/dashboard');
 			})
 			.error(function(data, status, headers, config){
 				console.log(data);
@@ -123,9 +92,9 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 	//if the user is signed in already, redirect to dashboard
 	var redirectIfSignedin = function (){
 		if(isSignedIn()){
-			$location.path('/dashboard');
+			// $location.path('/dashboard');
 		} else {
-			// $location.path('/login');
+			$location.path('/login');
 		}
 	};
 
@@ -136,7 +105,6 @@ app.factory('authService', function($rootScope, $http, $location, POSTREQ, REQ, 
 		logout: logout,
 		getuser: getuser,
 		redirect: redirectIfSignedin,
-		isSignedIn: isSignedIn,
-		errors: errorMessage
+		isSignedIn: isSignedIn
 	};
 });

@@ -1,0 +1,39 @@
+<style type="text/css">
+	body{
+		/*background: url('../img/palewoodpanel.jpg');*/
+	}
+</style>
+
+<div ng-controller="dashboardCtrl">
+
+	<div ng-include="'modMain/navbar.html'"></div>
+	
+	<div class="jumbotron">
+		<div class="container">
+			<h1> Welcome {{user.username}}!</h1>
+		</div>
+	</div>
+
+	<div class="container">
+
+		<!-- test card -->
+		<div class="col-md-4" ng-repeat="test in data">
+			<div class="card">
+				<div class="card-image">
+					<img class="img-responsive" src="img/lib-min.jpg">
+
+					<span class="card-title header-text">{{test.name}}</span>
+				</div>
+
+				<!-- possible answers form -->
+				<div class="card-content sub-text">
+					<p>{{test.topic.name}} </p>
+				</div>
+				<div class="card-content sub-text">
+					<button class="btn btn-danger btn-sm main-cta-button" ng-click="takeTest(test.id)">Take this test</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
