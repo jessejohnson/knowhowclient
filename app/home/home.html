@@ -1,10 +1,73 @@
-<div ng-controller="homeCtrl">
+<style type="text/css">
+.page-header{
+	border-color: #333;
+}
+
+.badge{
+	cursor: pointer;
+}
+</style>
+
+<div ng-controller="homeCtrl as home">
 
 	<div ng-include="'app/main/navbar.html'"></div>
 
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Welcome {{user.username}} </h1>
+	<div class="container">
+
+		<!-- test row -->
+		<div class="row">
+			<div class="page-header">
+				<h1>Tests</h1>
+			</div>
+
+			<!-- test table -->
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name of Test</th>
+						<th>Exam</th>
+						<th>Paper</th>
+						<th>Topic</th>
+						<!-- <th>Taken</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="test in home.tests">
+						<td>{{ test.name }}</td>
+						<td>{{ test.exam.short_name }}</td>
+						<td>{{ test.paper.name }}</td>
+						<td>{{ test.topic.name }}</td>
+						<th><span ng-click="home.takeTest()" class="badge"><span class="glyphicon glyphicon-pencil"></span></span></th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- resources row -->
+		<div class="row">
+			<div class="page-header">
+				<h1>Learning Resources</h1>
+			</div>
+
+			<!-- resources table -->
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Topic</th>
+						<th>Summary</th>
+						<!-- <th>Link</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="resource in home.resources">
+						<td>{{resource.name}}</td>
+						<td>{{resource.topic.name}}</td>
+						<td>{{resource.summary}}</td>
+						<td><span ng-click="home.viewResource()" class="badge"><span class="glyphicon glyphicon-link"></span> </span> </td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
+
 </div>

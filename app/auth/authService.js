@@ -10,7 +10,8 @@ function authServiceFunction($http, $location, SERVER, REQUEST, POST_REQUEST){
 		signup: signup,
 		getUser: getUser,
 		logout: logout,
-		isUserLoggedIn: isUserLoggedIn
+		isUserLoggedIn: isUserLoggedIn,
+		redirectIfLoggedIn: redirectIfLoggedIn
 	}
 
 	//private methods
@@ -49,6 +50,7 @@ function authServiceFunction($http, $location, SERVER, REQUEST, POST_REQUEST){
 		localStorage.removeItem('userEmail');
 		localStorage.removeItem('userUrl');
 		localStorage.removeItem('token');
+		localStorage.removeItem('avatar');
 		//redirect to index
 		$location.path('/');
 	}
@@ -74,12 +76,21 @@ function authServiceFunction($http, $location, SERVER, REQUEST, POST_REQUEST){
 		return localStorage['token'] != null;
 	}
 
+	function redirectIfLoggedIn(path){
+		if(!isUserLoggedIn()){
+			$location.path(path);
+		} 
+		// else{
+		// 	$location.path("/login");
+		// }
+	}
+
 	function loginSuccessFunction(data, status, headers, config){
 		localStorage['token'] = data.token;
 	}
 
 	function signupSuccessFunction(data, status, headers, config){
-		console.log(data);
+		// console.log(data);
 	}
 
 	function getUserSuccessFunction(data, status, headers, config){
@@ -88,6 +99,7 @@ function authServiceFunction($http, $location, SERVER, REQUEST, POST_REQUEST){
 		localStorage['avatar'] = data.avatar;
 		localStorage['userId'] = data.id;
 		localStorage['userUrl'] = data.url;
+		console.log(data);
 		//redirect to home
 		$location.path('/home');
 	}

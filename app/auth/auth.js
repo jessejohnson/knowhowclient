@@ -3,7 +3,8 @@
 angular.module('prepgh.auth', [])
 .config(['$routeProvider', routeProviderFunction])
 .controller('loginCtrl', loginCtrlFunction)
-.controller('signupCtrl', signupCtrlFunction);
+.controller('signupCtrl', signupCtrlFunction)
+.controller('navbarCtrl', navbarCtrlFunction);
 
 function routeProviderFunction($routeProvider){
 	$routeProvider
@@ -15,20 +16,15 @@ function routeProviderFunction($routeProvider){
 	});
 };
 
-function loginCtrlFunction($scope, authService){
+function loginCtrlFunction(authService){
 	console.log('loginCtrl has control');
-	
-	//if user is logged in, redirect to /home
-	if(authService.isUserLoggedIn()){
-		console.log('user is logged in');
-	} else{
-		console.log('user is not logged in');
-	}
+	authService.redirectIfLoggedIn("/login");
 
-	$scope.login = login;
+	var vm = this;
+	vm.login = login;
 
 	function login(){
-		authService.login($scope.user.email, $scope.user.password)
+		authService.login(vm.user.email, vm.user.password)
 		.then(loginSuccess, loginError);
 	};
 
@@ -38,30 +34,58 @@ function loginCtrlFunction($scope, authService){
 
 	function loginError(error){
 		console.log("loginOrSignupError " + error.data);
-		$scope.errors = error.data;
+		vm.errors = error.data;
 	}
 }
 
-function signupCtrlFunction($scope, authService){
+function signupCtrlFunction(authService){
 	console.log('signupCtrl has control');
+	authService.redirectIfLoggedIn("/signup");
 
-	$scope.signup = signup;
+	var vm = this;
+
+	vm.signup = signup;
 
 	function signup(){
-		if($scope.user.password1 == $scope.user.password2){
-			authService.signup($scope.user.username, $scope.user.email, $scope.user.password1)
+		if(vm.user.password1 == vm.user.password2){
+			authService.signup(vm.user.username, vm.user.email, vm.user.password1)
 			.then(signupSuccess, signupError);
 		} else{
-			$scope.errors = "Passwords are not identical";
+			vm.errors = "Passwords are not identical";
 		}
 	}
 
 	function signupSuccess(success){
-		authService.login($scope.user.email, $scope.user.password1);
+		authService.login(vm.user.email, vm.user.password1)
+		.then(loginSuccess, loginError);
 	}
 
 	function signupError(error){
 		console.log("loginOrSignupError " + error.data);
-		$scope.errors = error.data;
+		vm.errors = error.data;
+	}
+
+	function loginSuccess(success){
+		authService.getUser(localStorage['userEmail']);
+	}
+
+	function loginError(error){
+		console.log("loginOrSignupError " + error.data);
+		vm.errors = error.data;
+	}
+}
+
+function navbarCtrlFunction(authService){
+	var vm = this;
+
+	vm.user = {};
+	vm.logout = logout;
+
+	vm.user.username = localStorage['username']
+	vm.user.userUrl = localStorage['userUrl'];
+	vm.user.userId = localStorage['userId'];
+
+	function logout(){
+		authService.logout();
 	}
 }
