@@ -81,7 +81,7 @@ function authServiceFunction($http, $location, SERVER, REQUEST, POST_REQUEST){
 			$location.path(path);
 		} 
 		// else{
-		// 	$location.path("/login");
+		// 	$location.path(otherwise);
 		// }
 	}
 

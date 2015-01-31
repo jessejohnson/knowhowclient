@@ -18,7 +18,7 @@ function routeProviderFunction($routeProvider){
 
 function loginCtrlFunction(authService){
 	console.log('loginCtrl has control');
-	authService.redirectIfLoggedIn("/login");
+	authService.redirectIfLoggedIn("/home");
 
 	var vm = this;
 	vm.login = login;
