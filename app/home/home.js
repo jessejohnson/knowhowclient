@@ -22,7 +22,7 @@ function homeCtrlFunction(authService, homeService){
 	
 
 	console.log('homeCtrl has control');
-	authService.redirectIfLoggedIn("/login");
+	authService.redirectIfLoggedIn("/login", "/home");
 	//load tests
 	homeService.getTestList()
 	.then(getTestListSuccess, getTestListError)

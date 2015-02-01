@@ -76,13 +76,13 @@ function authServiceFunction($http, $location, SERVER, REQUEST, POST_REQUEST){
 		return localStorage['token'] != null;
 	}
 
-	function redirectIfLoggedIn(path){
+	function redirectIfLoggedIn(path, otherwise){
 		if(!isUserLoggedIn()){
 			$location.path(path);
 		} 
-		// else{
-		// 	$location.path(otherwise);
-		// }
+		else{
+			$location.path(otherwise);
+		}
 	}
 
 	function loginSuccessFunction(data, status, headers, config){
